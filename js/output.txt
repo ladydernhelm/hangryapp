@@ -1,0 +1,17 @@
+null
+GOOOOOOOODDDD BUZZ ************** [ 'Lunchpad', 4.5, 144.52252939915508 ]
+BAAAAAAAAAADD BUZZ &&&&&&&&&&&&&& [ [ 'Domo', 4 ],
+  [ 'Suppenküche', 4 ],
+  [ 'Two Sisters Bar and Books', 4 ],
+  [ 'Smitten Ice Cream', 4 ],
+  [ 'Rickybobby', 4 ],
+  [ 'Espetus Churrascaria', 4 ],
+  [ 'Hôtel Biron', 4 ],
+  [ 'Martuni\'s', 4 ],
+  [ 'Sushi Zone', 4 ],
+  [ 'Cafe International', 4 ],
+  [ 'Jardinière', 4 ],
+  [ 'Pläj Scandinavian Restaurant & Bar', 4 ],
+  [ 'Smuggler\'s Cove', 4 ],
+  [ 'Love N Haight Deli', 4 ],
+  [ 'Noc Noc', 4 ] ]
