@@ -1,15 +1,12 @@
 var express = require('express');
-var path = require('path');  
 var app = express();
-var router = express.Router(); 
-app.use(router); 
 
 app.get('/', function (req, res) {
-  res.render(__dirname + '/');
+  res.sendfile(__dirname + '/index.html');
 });
 
-router.get(function (req, res) {
-  res.render(__dirname + './results.html');
+app.get('/results.html', function (req, res) {
+  res.sendfile(__dirname + '/results.html');
 });
 
 var server = app.listen(3000, function () {
