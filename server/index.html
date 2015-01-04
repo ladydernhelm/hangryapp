@@ -7,10 +7,34 @@
 		document.getElementById("latField").value = lat;
 		document.getElementById("lonField").value = lon;
 
+   if (latField.isNaN) {
+    alert("Please allow geolocation");
+    console.log("Gotta allow geolocation")
+        // return false;
+    }
+    else {
+    	console.log("It's there")
+    };
+
 	});
 
 
 console.log("woot");
+
+// var validateForm = function validateForm(){
+//     // var latField =  document.getElementById("latField").value; // document.forms["geolocation"]["latField"].value;
+//     if (latField.isNaN) {
+//         alert("Please allow geolocation");
+//         console.log("Gotta allow geolocation")
+//         // return false;
+//     }
+//     else {
+//     	console.log("It's there")
+//     };
+// };
+
+// validateForm()
+
 </script>
 
 
