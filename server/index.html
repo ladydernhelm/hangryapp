@@ -24,13 +24,43 @@
 </script>
  -->
 
+ <script type="text/javascript">
+	navigator.geolocation.getCurrentPosition(function(position) {
+		// Get the positioning coordinates.
+		var lat = position.coords.latitude;
+		var lon = position.coords.longitude;
+		//document.write('<p>'+lat+'</p>'
+			// ;
+		// return lat, lon;
+
+		// var latField = document.getElementById('latField');
+	
+		// var formFiller = function formFiller(){
+
+		// latField.value = lat;
+	// var emptyField = document.getElementById(geolocation)
+	// var filledField = str.replace("", lat + "," + lon)
+		// };
+		// var latInput = oFormObject.elements["latField"].value = lat;
+		document.getElementById("latField").value = lat;
+		document.getElementById("lonField").value = lon;
+
+	});
+
+
+console.log("woot");
+</script>
+
+
 <h1> Are you Hangry?</h1>
 <h2> Do you want to eat?</h2>
 	<div>How nice does the reaturant need to be?
 		<br>
 		<br>
 		<form action="./results.html" method="GET" id="geolocation">
-			<input type="hidden" name="latField">
+			<input type="hidden" name="latField" id="latField" value="">
+			<input type="hidden" name="lonField" id="lonField" value="">
+
 			<input type="radio" name="rating" value="0.5"> 0.5
 			
 			<input type="radio" name="rating" value="1.0"> 1.0
@@ -56,26 +86,3 @@
 		</form>
 	</div>
 
-<script type="text/javascript">
-	navigator.geolocation.getCurrentPosition(function(position) {
-		// Get the positioning coordinates.
-		var lat = position.coords.latitude;
-		var lon = position.coords.longitude;
-		//document.write('<p>'+lat+'</p>'
-			// ;
-		// return lat, lon;
-	
-		var formFiller = function formFiller(){
-
-		var latField = document.getElementById('geolocation');
-		latField.value = lat;
-	// var emptyField = document.getElementById(geolocation)
-	// var filledField = str.replace("", lat + "," + lon)
-		formFiller();
-		};
-
-	});
-
-
-console.log("woot");
-</script>
