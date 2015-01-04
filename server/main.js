@@ -5,7 +5,8 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
-app.get('/results.html', function (req, res) {
+app.get('/results.html', 
+	function (req, res) {
   res.sendfile(__dirname + '/results.html');
 });
 
@@ -17,6 +18,10 @@ var server = app.listen(3000, function () {
   console.log('My cool app listening at http://%s:%s', host, port);
 
 });
+
+
+
+
 
 // var http = require('http'),
 //     fs = require('fs');
