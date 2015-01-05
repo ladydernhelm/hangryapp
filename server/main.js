@@ -5,12 +5,12 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
-app.get('/results', function (funTimes, res) {
-  res.sendfile(__dirname + '/results.html');
+app.get('/results', function (funTimes, res, next) {
+	yelpAPICall(funTimes, res, next);
+	//console.log("GOOOOOOOODDDD BUZZ *******IN THE CALL*******", goodBiz);
 
-var goodBiz = yelpAPICall(funTimes);
-
-console.log("GOOOOOOOODDDD BUZZ *******IN THE CALL*******", goodBiz);
+}, function (funTimes, res) {
+	res.sendfile(__dirname + '/results.html');
 });
 
   
@@ -32,7 +32,7 @@ var server = app.listen(3000, function () {
 
 // // Request API access: http://www.yelp.com/developers/getting_started/api_access
 
-var yelpAPICall = function(KendrasRequest) { 
+var yelpAPICall = function(KendrasRequest, res, next) { 
 
 	var yelp = require("yelp").createClient({
 	  consumer_key: "QBkaRGvffd9UrOoADC2xXQ", 
@@ -51,7 +51,10 @@ var yelpAPICall = function(KendrasRequest) {
 		console.log("ERROR",error);
 	//	console.log(data);
 		var chosenBusinesses = pickBusiness(data.businesses);
-	 	
+
+	
+
+	 	next();
 	});
 
 	var userRatingSelection = KendrasRequest.query.rating; //input from user... how do I access that?
@@ -76,6 +79,7 @@ var yelpAPICall = function(KendrasRequest) {
 	 	// console.log("BAAAAAAAAAADD BUZZ &&&&&&&&&&&&&&", badBiz);
 
 	 	return goodBiz[0]; 
+
 	 	 
 
 	};
