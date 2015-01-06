@@ -51,7 +51,11 @@ var yelpAPICall = function(KendrasRequest, res, next) {
 		console.log("ERROR",error);
 	//	console.log(data);
 		var chosenBusinesses = pickBusiness(data.businesses);
-
+		 
+		 var goodBiz; 
+		 while(goodBiz === undefined) {
+		    require('deasync').runLoopOnce();
+		  };
 	
 
 	 	next();

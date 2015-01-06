@@ -1,18 +1,15 @@
 // get my first endpoint to render my index.html 
 //html form with "method" (GET) and "action" (/results)... need to build this too
 	//for the 10 options for choice 
-
-
-
-
-
 //make a second endpoint (/results) to recieve for lat/lon & rating and return a differnet page
-//make express.js route between the two based on 
-
-
+//make express.js route between the two
 //Might have to do some data validation to affirm that I have the geolocation
 
+
+
 // And I need to tie together the visual elements to the code (CSS)
+//get jQuery to bind the function to the submit function 
+//think about how to return the 
 
 
 
