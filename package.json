@@ -1,0 +1,29 @@
+{
+  "name": "hangryapp",
+  "version": "1.0.0",
+  "description": "hangryapp play",
+  "main": "hangry_specs.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "dependencies": {
+    "body-parser": "^1.10.1",
+    "yelp": "^0.1.1",
+    "express": "^4.10.6",
+    "deasync": "^0.0.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ladydernhelm/hangryapp.git"
+  },
+  "author": "me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ladydernhelm/hangryapp/issues"
+  },
+  "homepage": "https://github.com/ladydernhelm/hangryapp"
+}
