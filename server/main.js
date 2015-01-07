@@ -1,22 +1,26 @@
 var express = require('express');
 var app = express();
-// var bodyParser = require('body-parser');	
 var router = express.Router();
 
+// var bodyParser = require('body-parser');	
 // app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', function (req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/results', function (funTimes, res) {
-			yelpAPICall(funTimes, res);
-			console.log(funTimes.body.latField);
+app.get('/results', function (req, res) {
 
-		var goodBiz;
-	console.log("GOOOOOOOODDDD BUZZ *******IN THE CALL*******", goodBiz);
+	var latField = req.query.latField;
+	var lonField = req.query.lonField;
+	var rating = req.query.rating; //input from user... how do I access that?
 
-	}, function (funTimes, res) {
+	yelpAPICall(latField, lonField, rating);
+
+	// 	var goodBiz;
+	// console.log("GOOOOOOOODDDD BUZZ *******IN THE CALL*******", goodBiz);
+
+	}, function (req, res) {
 		res.sendFile(__dirname + '/results.html');
 });
 
@@ -58,7 +62,7 @@ var server = app.listen(3000, function () {
 
 // // Request API access: http://www.yelp.com/developers/getting_started/api_access
 
-var yelpAPICall = function(KendrasRequest, res) { 
+var yelpAPICall = function(latField, lonField, rating) { 
 
 	var yelp = require("yelp").createClient({
 	  consumer_key: "QBkaRGvffd9UrOoADC2xXQ", 
@@ -66,16 +70,12 @@ var yelpAPICall = function(KendrasRequest, res) {
 	  token: "VvNEUY3b06gNg5NZWUcSgoMDrCmt-Ibk",
 	  token_secret: "LJKvDi_W3ykgUtO6zX9qMdi8CZE"
 	});
-
-
-	var latField = KendrasRequest.query.latField;
-	var lonField = KendrasRequest.query.lonField;
-	var userRatingSelection = KendrasRequest.query.rating; //input from user... how do I access that?
-
 	
-
 	// See http://www.yelp.com/developers/documentation/v2/search_api
-	yelp.search({sort: 1, ll: latField + "," + lonField}, function(error, data) {
+	
+	var query = {sort: 1, ll: latField + "," + lonField};
+	
+	var yelpSearchCallback = function(error, data) {
 		console.log("ERROR",error);
 	//	console.log(data);
 		var chosenBusinesses =	pickBusiness(data.businesses);
@@ -83,19 +83,16 @@ var yelpAPICall = function(KendrasRequest, res) {
 		//  while(waiter === undefined) {
 		//     require('deasync').runLoopOnce();
 		//   };
+	};
 
-
-	});
+	yelp.search(query, yelpSearchCallback);
 	
-		
-
-
 	var pickBusiness = function(bizes){
 		var goodBiz = [];
 		// var badBiz = [];
 		for (var i = 0; i < bizes.length; i++) {
 			var currentBiz = bizes[i];
-			if (currentBiz.rating >= userRatingSelection) {
+			if (currentBiz.rating >= rating) {
 				goodBiz.push(
 					[currentBiz.name, currentBiz.rating, currentBiz.distance]
 				);
