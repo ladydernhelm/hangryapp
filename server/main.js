@@ -10,22 +10,26 @@ app.get('/results', function(req, res) {
 
 	var latField = req.query.latField;
 	var lonField = req.query.lonField;
-	var rating = req.query.rating; //input from user... how do I access that?
+	var rating = req.query.rating; 
 
-	yelpAPICall(latField, lonField, rating, function(chosenBusinesses){
+	if(!latField || !lonField){
+		res.status(500).sendFile(__dirname + "/geoerror.html");
+	};
+
+	if(!rating){
+		res.status(500).sendFile("./ratingerror.html");
+	};
+
+	yelpAPICall(latField, lonField, rating, function(error, chosenBusinesses){
+		//Need to change this to .render0
 		res.send(chosenBusinesses);
-	});
+		console.log("GOOOOOOOODDDD BUZZ *******IN THE CALL*******", chosenBusinesses);
 
-	// 	var goodBiz;
-	// console.log("GOOOOOOOODDDD BUZZ *******IN THE CALL*******", goodBiz);
+	});
 
 });
 
 
-// , function (req, res) {
-// 		res.sendFile(__dirname + '/results.html');
-// }
-  
 
 var server = app.listen(3000, function() {
 
@@ -58,14 +62,16 @@ var yelpAPICall = function(latField, lonField, rating, callback) {
 	var query = {sort: 1, ll: latField + "," + lonField};
 	
 	var yelpSearchCallback = function(error, data) {
+
+		if(error){
+			callback(error);
+			return 
+		}
+
 		console.log("ERROR",error);
 	//	console.log(data);
 		var chosenBusinesses =	pickBusiness(data.businesses);
-		callback(chosenBusinesses);
-		// var waiter; 
-		//  while(waiter === undefined) {
-		//     require('deasync').runLoopOnce();
-		//   };
+		callback(null, chosenBusinesses);
 	};
 
 	yelp.search(query, yelpSearchCallback);
