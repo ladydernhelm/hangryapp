@@ -1,19 +1,38 @@
 var express = require('express');
 var app = express();
+// var bodyParser = require('body-parser');	
+var router = express.Router();
 
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
+// app.use(bodyParser.urlencoded({ extended: false }));
+
+app.get('/', function (req, res){
+  res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/results', function (funTimes, res, next) {
-	yelpAPICall(funTimes, res, next);
-	//console.log("GOOOOOOOODDDD BUZZ *******IN THE CALL*******", goodBiz);
+app.get('/results', function (funTimes, res) {
+			yelpAPICall(funTimes, res);
+			console.log(funTimes.body.latField);
 
-}, function (funTimes, res) {
-	res.sendfile(__dirname + '/results.html');
+		var goodBiz;
+	console.log("GOOOOOOOODDDD BUZZ *******IN THE CALL*******", goodBiz);
+
+	}, function (funTimes, res) {
+		res.sendFile(__dirname + '/results.html');
 });
 
   
+//trying to get the POST method to work
+// app.use(express.bodyParser());
+
+// app.post('/latlon', function(KendrasRequest) {
+// 	yelpAPICall(funTimes, res);
+
+//   console.log(KendrasRequest.body.latField);
+//   res.json(KendrasRequest.body.latField);
+
+// });
+
+
 
 var server = app.listen(3000, function () {
 
@@ -25,6 +44,13 @@ var server = app.listen(3000, function () {
 });
 
 
+
+
+
+
+
+
+
 /********************************
 *        Yelp API Calls
 *********************************/
@@ -32,7 +58,7 @@ var server = app.listen(3000, function () {
 
 // // Request API access: http://www.yelp.com/developers/getting_started/api_access
 
-var yelpAPICall = function(KendrasRequest, res, next) { 
+var yelpAPICall = function(KendrasRequest, res) { 
 
 	var yelp = require("yelp").createClient({
 	  consumer_key: "QBkaRGvffd9UrOoADC2xXQ", 
@@ -44,28 +70,29 @@ var yelpAPICall = function(KendrasRequest, res, next) {
 
 	var latField = KendrasRequest.query.latField;
 	var lonField = KendrasRequest.query.lonField;
+	var userRatingSelection = KendrasRequest.query.rating; //input from user... how do I access that?
+
 	
 
 	// See http://www.yelp.com/developers/documentation/v2/search_api
 	yelp.search({sort: 1, ll: latField + "," + lonField}, function(error, data) {
 		console.log("ERROR",error);
 	//	console.log(data);
-		var chosenBusinesses = pickBusiness(data.businesses);
-		 
-		 var goodBiz; 
-		 while(goodBiz === undefined) {
-		    require('deasync').runLoopOnce();
-		  };
-	
+		var chosenBusinesses =	pickBusiness(data.businesses);
+		// var waiter; 
+		//  while(waiter === undefined) {
+		//     require('deasync').runLoopOnce();
+		//   };
 
-	 	next();
+
 	});
+	
+		
 
-	var userRatingSelection = KendrasRequest.query.rating; //input from user... how do I access that?
 
 	var pickBusiness = function(bizes){
 		var goodBiz = [];
-		var badBiz = [];
+		// var badBiz = [];
 		for (var i = 0; i < bizes.length; i++) {
 			var currentBiz = bizes[i];
 			if (currentBiz.rating >= userRatingSelection) {
@@ -73,19 +100,18 @@ var yelpAPICall = function(KendrasRequest, res, next) {
 					[currentBiz.name, currentBiz.rating, currentBiz.distance]
 				);
 			}
-			else {
-				badBiz.push(
-					[currentBiz.name, currentBiz.rating]
-				);
-			}
-		}
+			// else {
+			// 	badBiz.push(
+			// 		[currentBiz.name, currentBiz.rating]
+			// 	);
+					
+			// };
+		};
 	 	console.log("GOOOOOOOODDDD BUZZ ********IN THE FUNCTION******", goodBiz[0]);
 	 	// console.log("BAAAAAAAAAADD BUZZ &&&&&&&&&&&&&&", badBiz);
-
 	 	return goodBiz[0]; 
-
-	 	 
-
 	};
 };
+
+
 

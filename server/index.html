@@ -7,13 +7,15 @@
 		document.getElementById("latField").value = lat;
 		document.getElementById("lonField").value = lon;
 
-   if (latField.isNaN) {
+   if (latField.isNumber) {
     alert("Please allow geolocation");
     console.log("Gotta allow geolocation")
         // return false;
     }
     else {
-    	console.log("It's there")
+    	console.log("It's there");
+		document.getElementById("geolocation").submit();
+
     };
 
 	});
@@ -38,14 +40,24 @@ console.log("woot");
 </script>
 
 
+
+<!-- Alternate attempt to GET the lat/lon -->
+	<form method="POST" id="geolocation">
+		<input type="hidden" name="latField" id="latField" value="">
+		<input type="hidden" name="lonField" id="lonField" value="">
+		<input type="submit" style="display: none;">
+	</form>
+
+
+
 <h1> Are you Hangry?</h1>
 <h2> Do you want to eat?</h2>
 	<div>How nice does the reaturant need to be?
 		<br>
 		<br>
-		<form action="/results" method="GET" id="geolocation">
-			<input type="hidden" name="latField" id="latField" value="">
-			<input type="hidden" name="lonField" id="lonField" value="">
+		<form action="/results" method="GET" id="geolocation2">
+			<!-- <input type="hidden" name="latField" id="latField" value="">
+			<input type="hidden" name="lonField" id="lonField" value=""> -->
 
 			<input type="radio" name="rating" value="0.5"> 0.5
 			
