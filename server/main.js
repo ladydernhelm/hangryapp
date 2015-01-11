@@ -30,9 +30,10 @@ app.get('/results', function(req, res) {
 		res.status(500).sendFile(__dirname + "/geoerror.html");
 	};
 
-	//data validation with ratingerroe end point
+	//set rating to 0 if they find a way around the required html form
 	if(!rating){
-		res.status(500).sendFile("./ratingerror.html");
+		rating = 0;
+
 	};
 
 	//calling my YelpAPICall function
@@ -46,7 +47,7 @@ app.get('/results', function(req, res) {
 });
 
 /********************************
-*        Yelp API Calls
+*        Yelp API Call          *
 *********************************/
 
 //request API access: http://www.yelp.com/developers/getting_started/api_access
@@ -62,51 +63,52 @@ var yelpAPICall = function(latField, lonField, rating, callback) {
 	
 
 	/** 
-	* Sorting by yelp settings. Returns 20 businesses
-	* "sort: 1" will sort by nearest to furthest. 
-	* "ll:" is looking for latitude + longitude" 
-	* (see http://www.yelp.com/developers/documentation/v2/search_api for more params if needed)
-	*/
+	 * Sorting by yelp settings. Returns 20 businesses
+	 * "sort: 1" will sort by nearest to furthest. 
+	 * "ll:" is looking for latitude + longitude" 
+	 * (see http://www.yelp.com/developers/documentation/v2/search_api for more params if needed)
+	 */
 	var query = {sort: 1, ll: latField + "," + lonField};
 	
-
-
-	//stoped commenting here on 1/7/14... will do more tomorrow
-
+	//pulled this out of the normal yelp.search in order to include a callback 
 	var yelpSearchCallback = function(error, data) {
 
+		//stop eveything if there's an error
 		if(error){
 			callback(error);
 			return 
 		}
 
-		console.log("ERROR",error);
-	//	console.log(data);
 		var chosenBusinesses =	pickBusiness(data.businesses);
+		
+		/*here's the magic, this "callback" inside the yelp callback 
+		 *forces the comp to catch up with the async before moving on
+		 */
 		callback(null, chosenBusinesses);
+
 	};
 
+	//and here we finally talk to Yelp
 	yelp.search(query, yelpSearchCallback);
 	
+	//use this function to sort though and select the final destination 
 	var pickBusiness = function(bizes){
+		
+		//defining the array for what will be the place to go
 		var goodBiz = [];
-		// var badBiz = [];
+
+		/**looping through all 20 returned bizes and pushing the ones that are 
+		 *"good enough" to the goodBiz array
+		 */
 		for (var i = 0; i < bizes.length; i++) {
 			var currentBiz = bizes[i];
 			if (currentBiz.rating >= rating) {
 				goodBiz.push(
-					[currentBiz.name, currentBiz.rating, currentBiz.distance]
+					[currentBiz.name, currentBiz.rating] //need to look at the docs and get address
 				);
 			}
-			// else {
-			// 	badBiz.push(
-			// 		[currentBiz.name, currentBiz.rating]
-			// 	);
-					
-			// };
 		};
-	 	console.log("GOOOOOOOODDDD BUZZ ********IN THE FUNCTION******", goodBiz[0]);
-	 	// console.log("BAAAAAAAAAADD BUZZ &&&&&&&&&&&&&&", badBiz);
+		//returning the first, because "sort:1" already has them sorted by distance (meters by radius)
 	 	return goodBiz[0]; 
 	};
 };
