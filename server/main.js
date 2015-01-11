@@ -27,6 +27,7 @@ app.get('/results', function(req, res) {
 
 	//data validation with geoerror end point
 	if(!latField || !lonField){
+		// alert("Oops! I can't seem to find your location. Double check that you enabled geolocation on the top right of this page");
 		res.status(500).sendFile(__dirname + "/geoerror.html");
 	};
 
@@ -104,7 +105,7 @@ var yelpAPICall = function(latField, lonField, rating, callback) {
 			var currentBiz = bizes[i];
 			if (currentBiz.rating >= rating) {
 				goodBiz.push(
-					[currentBiz.name, currentBiz.rating] //need to look at the docs and get address
+					[currentBiz.name, currentBiz.location.display_address] //need to look at the docs and get address
 				);
 			}
 		};
