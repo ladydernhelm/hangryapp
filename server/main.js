@@ -6,7 +6,13 @@
 
 //Express init and server setup
 var express = require('express');
+var exphbs  = require('express-handlebars');
 var app = express();
+var hbs = exphbs.create({ /* config */ });
+
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 
 var server = app.listen(3000, function() {
   var host = server.address().address;
@@ -20,7 +26,7 @@ app.get('/', function(req, res){
 });
 
 //Routing set up for results.html 
-app.get('/results', function(req, res) {
+app.get('/results.hbs', function(req, res) {
 	var latField = req.query.latField;
 	var lonField = req.query.lonField;
 	var rating = req.query.rating; 
@@ -40,8 +46,8 @@ app.get('/results', function(req, res) {
 	//calling my YelpAPICall function
 	yelpAPICall(latField, lonField, rating, function(error, chosenBusinesses){
 		//Need to change this to .render0
-		res.send(chosenBusinesses);
-		console.log("GOOOOOOOODDDD BUZZ *******IN THE CALL*******", chosenBusinesses);
+		res.render(chosenBusinesses);
+		// console.log("GOOOOOOOODDDD BUZZ *******IN THE CALL*******", chosenBusinesses);
 
 	});
 
