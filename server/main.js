@@ -11,8 +11,8 @@ var app = express();
 var hbs = exphbs.create({ /* config */ });
 
 
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
+app.engine('.hbs', exphbs({extname: '.hbs'}));
+app.set('view engine', '.hbs');
 
 var server = app.listen(3000, function() {
   var host = server.address().address;
@@ -26,7 +26,7 @@ app.get('/', function(req, res){
 });
 
 //Routing set up for results.html 
-app.get('/results.hbs', function(req, res) {
+app.get('/results', function(req, res) {
 	var latField = req.query.latField;
 	var lonField = req.query.lonField;
 	var rating = req.query.rating; 
