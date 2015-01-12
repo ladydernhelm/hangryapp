@@ -47,8 +47,11 @@ app.get('/results', function(req, res) {
 
 	//calling my YelpAPICall function
 	yelpAPICall(latField, lonField, rating, function(error, chosenBusinesses){
-		res.render("results", chosenBusinesses);
-		// console.log("GOOOOOOOODDDD BUZZ *******IN THE CALL*******", chosenBusinesses);
+
+		var name = chosenBusinesses[0];
+		var address = chosenBusinesses[1];
+	
+		res.render("results", {name: "name", address: "address"});
 
 	});
 
@@ -93,6 +96,7 @@ var yelpAPICall = function(latField, lonField, rating, callback) {
 		 *forces the comp to catch up with the async before moving on
 		 */
 		callback(null, chosenBusinesses);
+
 
 	};
 
