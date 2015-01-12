@@ -13,6 +13,8 @@ var hbs = exphbs.create({ /* config */ });
 
 app.engine('.hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
+app.set('views', __dirname + '/views');
+
 
 var server = app.listen(3000, function() {
   var host = server.address().address;
@@ -45,8 +47,7 @@ app.get('/results', function(req, res) {
 
 	//calling my YelpAPICall function
 	yelpAPICall(latField, lonField, rating, function(error, chosenBusinesses){
-		res.render("/results", {chosenBusinesses: "chosenBusinesses"}, function(err, html){
-		});
+		res.render("results", chosenBusinesses);
 		// console.log("GOOOOOOOODDDD BUZZ *******IN THE CALL*******", chosenBusinesses);
 
 	});
