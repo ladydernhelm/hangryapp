@@ -45,8 +45,8 @@ app.get('/results.hbs', function(req, res) {
 
 	//calling my YelpAPICall function
 	yelpAPICall(latField, lonField, rating, function(error, chosenBusinesses){
-		//Need to change this to .render0
-		res.render(chosenBusinesses);
+		res.render("/results", {chosenBusinesses: "chosenBusinesses"}, function(err, html){
+		});
 		// console.log("GOOOOOOOODDDD BUZZ *******IN THE CALL*******", chosenBusinesses);
 
 	});
