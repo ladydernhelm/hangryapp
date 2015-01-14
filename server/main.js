@@ -50,8 +50,10 @@ app.get('/results', function(req, res) {
 
 		var name = chosenBusinesses[0];
 		var address = chosenBusinesses[1];
+
+
 	
-		res.render("results", {name: "name", address: "address"});
+		res.render("results", {name: name, address: address});
 
 	});
 
