@@ -1,6 +1,0 @@
-null
-{ region: 
-   { span: { latitude_delta: 0, longitude_delta: 0 },
-     center: { latitude: 37.483309, longitude: -121.381097 } },
-  total: 0,
-  businesses: [] }
