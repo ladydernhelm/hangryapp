@@ -12,8 +12,10 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="/public/normalize.css">
+        <link rel="stylesheet" href="public/normalize.css">
         <link rel="stylesheet" href="public/main.css">
+        <link rel="stylesheet" href="public/font-awesome-4.3.0/css/font-awesome.min.css">
+
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
         <!-- using the HTML5 geolocation API -->
         <script type="text/javascript">
@@ -31,49 +33,31 @@
         </script>
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+        <div class="center">
+        <img src="/public/img/hangry_logo_no_bg.png" alt="Hangry Logo" width="400">
 
-        <!-- Add your site or application content here -->
-
-        <!-- html form to GET lat/lon and rating back to server-->
-        <h1> Are you Hangry?</h1>
-        <h2> Do you want to eat?</h2>
-        <div>How nice does the reaturant need to be?
+        <h1> Go eat now: </h1>
             <br>
             <br>
             <form action="/results" method="GET" id="geolocation" >
                 <input type="hidden" name="latField" id="latField" value="">
                 <input type="hidden" name="lonField" id="lonField" value="">
-
-                <input type="radio" name="rating" value="0.5"> 0.5
-                
-                <input type="radio" name="rating" value="1.0"> 1.0
-                
-                <input type="radio" name="rating" value="1.5"> 1.5
-                
-                <input type="radio" name="rating" value="2.0"> 2.0
-                
-                <input type="radio" name="rating" value="2.5"> 2.5
-                
-                <input type="radio" name="rating" value="3.0" required> 3.0
-                
-                <input type="radio" name="rating" value="3.5"> 3.5
-                
-                <input type="radio" name="rating" value="4.0"> 4.0
-                
-                <input type="radio" name="rating" value="4.5"> 4.5
-                
-                <input type="radio" name="rating" value="5.0"> 5.0
+                <fieldset class="rating">
+                <input type="radio" id="star5"     name="rating" value="5" /><label class = "full" for="star5" onclick="this.form.submit();"></label>
+                <input type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half" onclick="this.form.submit();"></label>
+                <input type="radio" id="star4"     name="rating" value="4" /><label class = "full" for="star4" onclick="this.form.submit();"></label>
+                <input type="radio" id="star3half" name="rating" value="3.5" /><label class="half" for="star3half" onclick="this.form.submit();"></label>
+                <input type="radio" id="star3"     name="rating" value="3" /><label class = "full" for="star3" onclick="this.form.submit();"></label>
+                <input type="radio" id="star2half" name="rating" value="2.5" /><label class="half" for="star2half" onclick="this.form.submit();"></label>
+                <input type="radio" id="star2"     name="rating" value="2" /><label class = "full" for="star2" onclick="this.form.submit();"></label>
+                <input type="radio" id="star1half" name="rating" value="1.5" /><label class="half" for="star1half"onclick="this.form.submit();"></label>
+                <input type="radio" id="star1"     name="rating" value="1" /><label class = "full" for="star1" onclick="this.form.submit();"></label>
+                <input type="radio" id="starhalf"  name="rating" value="0.5" /><label class="half" for="starhalf" onClick="this.form.submit();"></label>
+                </fieldset>
                 <br>    
 
-                <input type="submit" value="Submit">
             </form>
         </div>
-
-
-
 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
