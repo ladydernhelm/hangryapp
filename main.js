@@ -10,6 +10,11 @@ var exphbs  = require('express-handlebars');
 var app = express();
 var hbs = exphbs.create({ /* config */ });
 
+//hmmm.. I don't appear to need this:
+// var serveStatic = require('serve-static')
+
+app.use(express.static(__dirname, 'public'));
+
 
 app.engine('.hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
@@ -22,7 +27,6 @@ var server = app.listen(3000, function() {
   console.log('My cool app listening at http://%s:%s', host, port);
 });
 
-app.use(express.static('public'));
 
 
 //Routing setup for index.html
