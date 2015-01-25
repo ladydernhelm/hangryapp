@@ -22,6 +22,9 @@ var server = app.listen(3000, function() {
   console.log('My cool app listening at http://%s:%s', host, port);
 });
 
+app.use(express.static('public'));
+
+
 //Routing setup for index.html
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');

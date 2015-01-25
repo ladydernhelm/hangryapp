@@ -1,3 +1,5 @@
+// Look into 'forever' so my server won't DIE if I get an error
+
 // get my first endpoint to render my index.html 
 //html form with "method" (GET) and "action" (/results)... need to build this too
 	//for the 10 options for choice 

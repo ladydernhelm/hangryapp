@@ -12,9 +12,23 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="public/normalize.css">
+        <link rel="stylesheet" href="public/main.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <!-- using the HTML5 geolocation API -->
+        <script type="text/javascript">
+            navigator.geolocation.getCurrentPosition(function(position) {
+                // Get the positioning coordinates.
+                var lat = position.coords.latitude;
+                var lon = position.coords.longitude;
+
+                //push the geolocated lat and lon into the hidden fields, so we can pass back to the server
+                document.getElementById("latField").value = lat;
+                document.getElementById("lonField").value = lon;
+
+            });
+
+        </script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -22,7 +36,45 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <p>Hello world! This is HTML5 Boilerplate.</p>
+
+        <!-- html form to GET lat/lon and rating back to server-->
+        <h1> Are you Hangry?</h1>
+        <h2> Do you want to eat?</h2>
+        <div>How nice does the reaturant need to be?
+            <br>
+            <br>
+            <form action="/results" method="GET" id="geolocation" >
+                <input type="hidden" name="latField" id="latField" value="">
+                <input type="hidden" name="lonField" id="lonField" value="">
+
+                <input type="radio" name="rating" value="0.5"> 0.5
+                
+                <input type="radio" name="rating" value="1.0"> 1.0
+                
+                <input type="radio" name="rating" value="1.5"> 1.5
+                
+                <input type="radio" name="rating" value="2.0"> 2.0
+                
+                <input type="radio" name="rating" value="2.5"> 2.5
+                
+                <input type="radio" name="rating" value="3.0" required> 3.0
+                
+                <input type="radio" name="rating" value="3.5"> 3.5
+                
+                <input type="radio" name="rating" value="4.0"> 4.0
+                
+                <input type="radio" name="rating" value="4.5"> 4.5
+                
+                <input type="radio" name="rating" value="5.0"> 5.0
+                <br>    
+
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+
+
+
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
